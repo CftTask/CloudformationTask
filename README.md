@@ -17,10 +17,10 @@ djdbcf.yaml - application database cloudformation template
 
 
 1. deploy db
-python3 deploydb.py --access_key=AKIA6JSSVJNZ5EJAFBY2 --secret_key=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 --stack_name=stackdb1 --template=djdbcf.yaml
+python3 deploydb.py --access_key=AKIA6JSSVJNZ5EJ**** --secret_key=ekb+ITApXer7UjJPVNIvQH4JZf5qHxpw6Yp***** --stack_name=stackdb1 --template=djdbcf.yaml
 
 2. build image and copy ami image id
-packer build -var 'aws_access_key=AKIA6JSSVJNZ5EJAFBY2' -var 'aws_secret_key=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' djappimage.json
+packer build -var 'aws_access_key=AKIA6JSSVJNZ5EJ****' -var 'aws_secret_key=ekb+ITApXer7UjJPVNIvQH4JZf5qHxpw6Y****' djappimage.json
 
 3. deploy app using image id built in step 2
-python3 deployapp.py --access_key=AKIA6JSSVJNZ5EJAFBY2 --secret_key=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 --stack_name=stacktest2 --template=djappcf.yaml --ec2keypair=cftest --amiid=ami-0a0efbb8adb05b58b
+python3 deployapp.py --access_key=AKIA6JSSVJNZ5EJ***** --secret_key=ekb+ITApXer7UjJPVNIvQH4JZf5qHxpw***** --stack_name=stacktest2 --template=djappcf.yaml --ec2keypair=cftest --amiid=ami-0a0efbb8adb05b58b
