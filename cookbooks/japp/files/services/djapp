@@ -1,0 +1,53 @@
+#!/bin/sh
+#
+# djapp - this script manages djapp
+#
+# chkconfig: 345 99 01
+# description: django application
+# processname: djapp
+
+
+
+# Source function library.
+
+. /etc/init.d/functions
+
+start() {
+	echo -n "Starting djapp: "
+    docker run -d --rm --network=host --name djapp -e AWS_ACCESS_KEY_ID=awsaccesskeyid -e AWS_SECRET_ACCESS_KEY=awssecretaccesskey -e AWS_REGION=awsregion karrug/djapp:0.4
+	touch /var/lock/subsys/djapp
+	return 0
+}	
+
+stop() {
+	echo -n "Shutting down djapp: "
+    docker stop djapp
+	rm -f /var/lock/subsys/djapp
+	return 0
+}
+
+case "$1" in
+    start)
+	start
+	;;
+    stop)
+	stop
+	;;
+    status)
+	;;
+    restart)
+	stop
+	start
+	;;
+    reload)
+	;;
+    condrestart)
+	[ -f /var/lock/subsys/djapp ] && restart || :
+	;;
+    *)
+	echo "Usage: djapp {start|stop|status|reload|restart[|probe]"
+	exit 1
+	;;
+esac
+
+exit $?
