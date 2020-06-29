@@ -30,7 +30,6 @@ When the avove stack creation is complete, a url is provided which serves the we
 
 
 # install boto3
-sudo apt-get install -y python3-pip
 sudo pip3 install boto3
 
 # files desc
@@ -43,7 +42,7 @@ djdbcf.yaml - application database cloudformation template
 
 # requirements
 1. aws admin keys (aws_access_key and aws_secret_key)
-2. ec2 key pair in ap-south-1 region
+2. ec2 key pair 
 3. boto3 library
 
 
