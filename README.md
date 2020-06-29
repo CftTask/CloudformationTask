@@ -2,7 +2,7 @@ Deploying app with high scalability and auto scaling.
 
 Tech stack:
 1. cloudformation - automate infrastructure on aws
-2. packet - create image
+2. packer - create image
 3. chef - configure image
 4. elastic load balancer
 5. aws autoscaling groups
