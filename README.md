@@ -1,3 +1,34 @@
+Deploying app with high scalability and auto scaling.
+
+Tech stack:
+1. cloudformation - automate infrastructure on aws
+2. packet - create image
+3. chef - configure image
+4. elastic load balancer
+5. aws autoscaling groups
+6. dynamodb - application database
+7. nginx - app web server
+7. python - automating whole process
+
+
+Firstly, dynamodb table is created using cloudformation. Autoscaling is enabled for dynamodb.
+
+
+Using packer ami image is created, with chef as packer provisioner, it installs docker, nginx, application packages and initializes the application such that when the image is booted, the app is ready to respond.
+
+
+The above created ami id is referenced in cloudformation while hosting the applicatio, this cloudformation script creates a loadbalancer and a aautoscaling group.
+The application scales up when the cpu utilization is greater than 90% for a span of 10mins.
+
+
+When the avove stack creation is complete, a url is provided which serves the web application.
+
+/set?userid=exampleuser&city=examplecity&signupdate=123   - creates a item in table
+
+/get?userid=exampleuser   - gets the exampleuser item
+
+
+
 # install boto3
 sudo apt-get install -y python3-pip
 sudo pip3 install boto3
