@@ -1,0 +1,36 @@
+{
+  "variables": {
+    "aws_access_key": "",
+    "aws_secret_key": ""
+  },
+  "builders": [
+    {
+      "type": "amazon-ebs",
+      "access_key": "{{user `aws_access_key`}}",
+      "secret_key": "{{user `aws_secret_key`}}",
+      "region": "ap-south-1",
+      "source_ami": "ami-ffbdd790",
+      "instance_type": "t2.micro",
+      "ssh_username": "ec2-user",
+      "ami_name": "packeramazonlinux {{timestamp}}"
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "chef-solo",
+      "cookbook_paths": ["cookbooks"],
+      "run_list": ["japp"]
+    },
+    {
+      "type": "shell",
+      "inline": ["sudo sed -i 's/awsaccesskeyid/{{user `aws_access_key`}}/g' /etc/init.d/djapp && sudo sed -i 's/awssecretaccesskey/{{user `aws_secret_key`}}/g' /etc/init.d/djapp && sudo sed -i 's/awsregion/ap-south-1/g' /etc/init.d/djapp"]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "manifest",
+      "output": "manifest.json",
+      "strip_path": true
+    }
+  ]
+}
